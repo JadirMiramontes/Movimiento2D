@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WarriorMove : MonoBehaviour
+{
+    [SerializeField] private float speed;//velocidad
+
+    private Rigidbody2D rb;
+    private float xInput;
+
+    void Awake()
+    {
+        // Referenciamos el RigidBody2D adjunto al personaje.
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
+
+    void FixedUpdate()
+    {
+        // Llamamos al control de movimiento
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+        // Capturamos las teclas ("A" y "D") y ("←" y "→") para conocer la dirección.
+        xInput = Input.GetAxisRaw("Horizontal");
+
+        // Creamos un vector para el movimiento horizontal multiplicando la dirección por la velocidad.
+        // En el eje vertical mantenemos la velocidad del Rigidbody.
+        Vector2 move = new Vector2(xInput * speed, rb.velocity.y);
+
+        // Le pasamos el movimiento a la velocidad del Rigidbody.
+        rb.velocity = move;
+    }
+}
